@@ -11,19 +11,19 @@
     <div class="container">
         <form action="registration.php" method="post">
             <div class="form-group">
-                <input type="text" name="fullname" placeholder="Full Name:">
+                <input type="text" class="form-control" name="fullname" placeholder="Full Name:">
             </div>
             <div class="form-group">
-                <input type="email" name="email" placeholder="Email:">
+                <input type="email" class="form-control" name="email" placeholder="Email:">
             </div>
             <div class="form-group">
-                <input type="password" name="password" placeholder="Password:">
+                <input type="password" class="form-control" name="password" placeholder="Password:">
             </div>
             <div class="form-group">
-                <input type="text" name="repeat_password" placeholder="Repeat password">
+                <input type="text" class="form-control" name="repeat_password" placeholder="Repeat password">
             </div>
-            <div class="form-group">
-                <input type="submit" value="Register" name="submit">
+            <div class="form-btn">
+                <input type="submit" class="btn btn-primary"value="Register" name="submit">
             </div>
         </form>
     </div>
