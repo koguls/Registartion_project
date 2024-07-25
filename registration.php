@@ -28,10 +28,20 @@
             array_push($erros, "password length should be 8char");
 
         }
-        if($password !== $passwordRepeat){
-
+        if($password!==$passwordRepeat){
             array_push($erros, "password worng");
          
+        }
+
+        if(count($erros)>0){
+
+            foreach ($erros as $error) {
+                echo "<div class= 'alert alert-danger'> $error</div>";
+            }
+            else{
+
+            }
+            
         }
        }
        
