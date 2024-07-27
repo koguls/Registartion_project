@@ -39,7 +39,7 @@
                 echo "<div class= 'alert alert-danger'> $error</div>";
             }
             else{
-
+                require_once "database.php";
             }
             
         }
