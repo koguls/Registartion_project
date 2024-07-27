@@ -11,43 +11,57 @@
     <div class="container">
        <?php
        if(isset($_POST["submit"])){
-        $fullname = $_POST["fullname"];
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        $passwordRepeat = $_POST["repeat_password"];
+         $fullname = $_POST["fullname"];
+         $email = $_POST["email"];
+         $password = $_POST["password"];
+         $passwordRepeat = $_POST["repeat_password"];
 
-        $erros = array();
+         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-        if(empty($fullname) || empty($email) || empty($password) || empty($passwordRepeat) ){
-            array_push($erros, "all field are error");
-        }
-        if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-            array_push($erros, "Email not vaild");
-        }
-        if(strlen($password)<8){
-            array_push($erros, "password length should be 8char");
+         $erros = array();
 
-        }
-        if($password!==$passwordRepeat){
-            array_push($erros, "password worng");
+         if(empty($fullname) || empty($email) || empty($password) || empty($passwordRepeat) ){
+          array_push($erros, "all field are error");
+          }
+         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+          array_push($erros, "Email not vaild");
+          }
+         if(strlen($password)<8){
+          array_push($erros, "password length should be 8char");
+
+          }
+         if($password!==$passwordRepeat){
+          array_push($erros, "password worng");
          
-        }
+          }
+          require_once "database.php";
+          $sql = "SELECT * FROM user  WHERE  email = '$email'";
+          $result = mysqli_query($conn, $sql);
+          $rowcount = mysqli_num_rows($result);
+         if (($rowcount)>0) {
+            array_push($erros, "Email already exits :(");
+         }
 
         if(count($erros)>0){
-
-            foreach ($erros as $error) {
-                echo "<div class= 'alert alert-danger'> $error</div>";
-            }
-            else{
-                require_once "database.php";
-                $sql = "INSERT INTO users (full_name, email, password) values (?, ?, ?)";
-                $stmt = mysqlitm_stmt_init($conn);
-                $preparestmt = mysqlitm_stmt_init($stmt, $sql);
-
-            }
-            
+            foreach($erros as $error) {
+                echo "<div class= 'alert alert-danger'>$error</div>";
+            }     
+        }else{
+                
+         $sql = "INSERT INTO user (full_name, email, password) VALUES ( ?, ?, ? )";
+         $stmt = mysqli_stmt_init($conn);
+         $preparestmt = mysqli_stmt_prepare($stmt, $sql);
+         if ($preparestmt) {
+            mysqli_stmt_bind_param($stmt,"sss",$fullname, $email, $passwordHash);
+            mysqli_stmt_execute($stmt);
+            echo "<div class='alert alert-success'>You Are Registered successfully :)</div>";
+        }else{
+            die("something went wrong");
         }
        }
+         
+    }
+    
        
        ?>   
         <form action="registration.php" method="post">
