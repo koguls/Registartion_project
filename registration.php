@@ -40,6 +40,10 @@
             }
             else{
                 require_once "database.php";
+                $sql = "INSERT INTO users (full_name, email, password) values (?, ?, ?)";
+                $stmt = mysqlitm_stmt_init($conn);
+                $preparestmt = mysqlitm_stmt_init($stmt, $sql);
+
             }
             
         }
