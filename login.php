@@ -1,3 +1,11 @@
+<?php
+session_start();
+if(!isset($_SESSION["user"])){
+    header("Location: index.php");
+}
+?> 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +29,9 @@
                 if (password_verify($password, $user["password"])) {
                     header("Location : index.php");
                     die();
+                }else{
+                    echo "<div class='alert alert-danger'>password does not match</div>";
+
                 }
                 
              }else{
@@ -45,6 +56,8 @@
                 <input type="submit" value="login" name="login" class="btn btn-primary">
             </div>
     </div>
+
+    <div><p>not register <a href="registration.php"> Register now</a></p></div>
     
 </body>
 </html>

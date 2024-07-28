@@ -81,7 +81,12 @@
                 <input type="submit" class="btn btn-primary"value="Register" name="submit">
             </div>
         </form>
+        <div>
+      <div><p>login <a href="login.php"> Login here now</a></p></div>
     </div>
+
+    </div> 
     
+   
 </body>
 </html>
